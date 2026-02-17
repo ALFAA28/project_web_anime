@@ -1,0 +1,51 @@
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a2e; 
+}
+ 
+::-webkit-scrollbar-thumb {
+    background: #4ecdc4; 
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ff6b6b; 
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes scaleUp {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.animate-scale-up {
+    animation: scaleUp 0.3s ease-out forwards;
+}
+
+/* Utility to hide/show */
+.hidden {
+    display: none !important;
+}
+
+/* Modal Open Body Lock */
+body.modal-open {
+    overflow: hidden;
+}
+
+/* Custom classes for JS toggles */
+.active-nav {
+    color: #ff6b6b;
+}
