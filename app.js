@@ -10,18 +10,18 @@
 // GANTI DENGAN CONFIG FIREBASE PROYEK ANDA
 // Caranya: Buka Console Firebase > Project Settings > General > Your Apps > SDK Setup and Configuration > Config
 const firebaseConfig = {
-    apiKey: "GANTI_DENGAN_FIREBASE_API_KEY",
-    authDomain: "GANTI_DENGAN_PROJECT_ID.firebaseapp.com",
-    projectId: "GANTI_DENGAN_PROJECT_ID",
-    storageBucket: "GANTI_DENGAN_PROJECT_ID.appspot.com",
-    messagingSenderId: "GANTI_DENGAN_SENDER_ID",
-    appId: "GANTI_DENGAN_APP_ID"
+    apiKey: "AIzaSyBGDC54yzaKTusSrs9YVCSk_x4d7w5rQsU",
+    authDomain: "project-web-anime.firebaseapp.com",
+    projectId: "project-web-anime",
+    storageBucket: "project-web-anime.firebasestorage.app",
+    messagingSenderId: "803774280365",
+    appId: "1:803774280365:web:9452df435a81825bbd8c24"
 };
 
 // GANTI DENGAN API KEY IMGBB
 // Caranya: Daftar di imgbb.com > Buat API Key
 // Pastikan API Key valid untuk upload gambar
-const IMGBB_API_KEY = "GANTI_DENGAN_IMGBB_API_KEY";
+const IMGBB_API_KEY = "b0972de6c6e1ef1daf51bded95425166";
 
 // ==========================================
 // 2. FIREBASE IMPORTS & INIT
