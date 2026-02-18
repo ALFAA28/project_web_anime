@@ -185,17 +185,25 @@
 
                     <div class="bg-darker p-4 rounded border border-gray-600 hover:border-gray-500 transition-colors">
                         <label class="block mb-2 text-sm text-gray-300 font-semibold">Karakter & Seiyuu</label>
-                        <div class="flex gap-2 mb-2">
-                            <input type="text" id="char-name-input" placeholder="Nama Karakter"
-                                class="flex-1 bg-gray-800 text-white text-xs p-2 rounded border border-gray-700 focus:border-secondary focus:outline-none">
-                            <input type="text" id="seiyuu-name-input" placeholder="Nama Seiyuu"
-                                class="flex-1 bg-gray-800 text-white text-xs p-2 rounded border border-gray-700 focus:border-secondary focus:outline-none">
-                            <button type="button" id="add-char-btn"
-                                class="bg-secondary text-dark hover:bg-cyan-400 px-3 py-1 rounded text-xs font-bold transition-colors">
-                                <i class="fas fa-plus"></i>
-                            </button>
+
+                        <div class="bg-gray-800/50 p-3 rounded mb-3 border border-gray-700">
+                            <label class="block text-xs text-gray-400 mb-1">Foto Karakter (Optional)</label>
+                            <input type="file" id="char-img-input" accept="image/*"
+                                class="w-full text-xs text-gray-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:bg-gray-700 file:text-white hover:file:bg-gray-600 mb-2">
+
+                            <div class="flex gap-2">
+                                <input type="text" id="char-name-input" placeholder="Nama Karakter"
+                                    class="flex-1 bg-gray-900 text-white text-xs p-2 rounded border border-gray-700 focus:border-secondary focus:outline-none">
+                                <input type="text" id="seiyuu-name-input" placeholder="Nama Seiyuu"
+                                    class="flex-1 bg-gray-900 text-white text-xs p-2 rounded border border-gray-700 focus:border-secondary focus:outline-none">
+                                <button type="button" id="add-char-btn"
+                                    class="bg-secondary text-dark hover:bg-cyan-400 px-3 py-1 rounded text-xs font-bold transition-colors">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
                         </div>
-                        <ul id="char-list" class="space-y-1 mb-2 max-h-40 overflow-y-auto custom-scrollbar pr-1 hidden">
+
+                        <ul id="char-list" class="space-y-2 mb-2 max-h-60 overflow-y-auto custom-scrollbar pr-1 hidden">
                             <!-- Character List Items -->
                         </ul>
                     </div>

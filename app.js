@@ -172,14 +172,22 @@ posterInput.addEventListener('change', (e) => {
 addCharBtn.addEventListener('click', () => {
     const charName = document.getElementById('char-name-input').value.trim();
     const seiyuuName = document.getElementById('seiyuu-name-input').value.trim();
+    const charImgInput = document.getElementById('char-img-input');
+    const charImgFile = charImgInput.files[0];
 
     if (charName && seiyuuName) {
-        tempCharacters.push({ name: charName, seiyuu: seiyuuName });
+        tempCharacters.push({
+            name: charName,
+            seiyuu: seiyuuName,
+            imageFile: charImgFile,
+            previewUrl: charImgFile ? URL.createObjectURL(charImgFile) : null
+        });
         renderCharList();
 
         // Clear inputs
         document.getElementById('char-name-input').value = '';
         document.getElementById('seiyuu-name-input').value = '';
+        charImgInput.value = '';
     } else {
         alert("Nama Karakter dan Seiyuu harus diisi!");
     }
@@ -192,9 +200,20 @@ function renderCharList() {
 
     tempCharacters.forEach((char, index) => {
         const li = document.createElement('li');
-        li.className = 'flex justify-between items-center bg-gray-700/50 p-2 rounded text-xs';
+        li.className = 'flex justify-between items-center bg-gray-700/50 p-2 rounded text-xs gap-3';
+
+        let imgHtml = char.previewUrl
+            ? `<img src="${char.previewUrl}" class="w-8 h-8 rounded-full object-cover border border-gray-500">`
+            : '<div class="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center"><i class="fas fa-user text-gray-400"></i></div>';
+
         li.innerHTML = `
-            <span><strong class="text-secondary">${char.name}</strong> (${char.seiyuu})</span>
+            <div class="flex items-center gap-3">
+                ${imgHtml}
+                <div class="flex flex-col">
+                    <strong class="text-secondary">${char.name}</strong>
+                    <span class="text-gray-400 text-[10px]">${char.seiyuu}</span>
+                </div>
+            </div>
             <button type="button" class="text-red-400 hover:text-red-300" onclick="removeChar(${index})">
                 <i class="fas fa-times"></i>
             </button>
@@ -224,12 +243,31 @@ animeForm.addEventListener('submit', async (e) => {
     uploadStatus.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Mengunggah Poster ke ImgBB...';
 
     try {
-        // 1. Upload Image to ImgBB
+        // 1. Upload Poster
         const posterUrl = await uploadToImgBB(file);
+
+        // 2. Upload Character Images
+        uploadStatus.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Mengunggah Foto Karakter...';
+
+        const charactersFinal = await Promise.all(tempCharacters.map(async (char) => {
+            let charImageUrl = null;
+            if (char.imageFile) {
+                try {
+                    charImageUrl = await uploadToImgBB(char.imageFile);
+                } catch (err) {
+                    console.error("Gagal upload foto karakter:", char.name);
+                }
+            }
+            return {
+                name: char.name,
+                seiyuu: char.seiyuu,
+                image_url: charImageUrl
+            };
+        }));
 
         uploadStatus.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Menyimpan Data ke Firestore...';
 
-        // 2. Prepare Data
+        // 3. Prepare Data
         const animeData = {
             title: document.getElementById('title').value,
             synopsis: document.getElementById('synopsis').value,
@@ -240,7 +278,7 @@ animeForm.addEventListener('submit', async (e) => {
             genre: document.getElementById('genre').value.split(',').map(g => g.trim()),
             watch_link: document.getElementById('watch-link').value,
             poster_url: posterUrl,
-            characters: tempCharacters,
+            characters: charactersFinal,
             createdAt: serverTimestamp()
         };
 
@@ -410,8 +448,13 @@ window.openDetail = (animeId) => {
         anime.characters.forEach(char => {
             const div = document.createElement('div');
             div.className = "flex items-center gap-2 bg-black/30 p-2 rounded";
+
+            let imgHtml = char.image_url
+                ? `<img src="${char.image_url}" class="w-8 h-8 rounded-full object-cover">`
+                : '<div class="w-8 h-8 rounded-full bg-secondary text-dark flex items-center justify-center font-bold text-xs"><i class="fas fa-user"></i></div>';
+
             div.innerHTML = `
-                <div class="w-8 h-8 rounded-full bg-secondary text-dark flex items-center justify-center font-bold text-xs"><i class="fas fa-user"></i></div>
+                ${imgHtml}
                 <div>
                     <h4 class="font-bold text-white text-xs">${char.name}</h4>
                     <p class="text-[10px] text-gray-400">CV: ${char.seiyuu}</p>
