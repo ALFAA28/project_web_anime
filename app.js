@@ -7,8 +7,6 @@
 // 1. CONFIGURATION (DIBAGIAN INI ISI API KEY)
 // ==========================================
 
-// GANTI DENGAN CONFIG FIREBASE PROYEK ANDA
-// Caranya: Buka Console Firebase > Project Settings > General > Your Apps > SDK Setup and Configuration > Config
 const firebaseConfig = {
     apiKey: "AIzaSyBGDC54yzaKTusSrs9YVCSk_x4d7w5rQsU",
     authDomain: "project-web-anime.firebaseapp.com",
@@ -18,9 +16,6 @@ const firebaseConfig = {
     appId: "1:803774280365:web:9452df435a81825bbd8c24"
 };
 
-// GANTI DENGAN API KEY IMGBB
-// Caranya: Daftar di imgbb.com > Buat API Key
-// Pastikan API Key valid untuk upload gambar
 const IMGBB_API_KEY = "b0972de6c6e1ef1daf51bded95425166";
 
 // ==========================================
