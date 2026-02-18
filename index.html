@@ -113,10 +113,16 @@
                 <!-- Text Inputs -->
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-xs text-gray-400 mb-1">Judul Anime</label>
+                        <label class="block text-xs text-gray-400 mb-1">Judul Anime (Romaji)</label>
                         <input type="text" id="title" placeholder="Contoh: Naruto Shippuden"
                             class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors"
                             required>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Judul Jepang (Kanji/Kana)</label>
+                        <input type="text" id="title-jp" placeholder="Contoh: ナルト- 疾風伝"
+                            class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors">
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
@@ -136,6 +142,23 @@
 
                     <div class="grid grid-cols-2 gap-4">
                         <div>
+                            <label class="block text-xs text-gray-400 mb-1">Status</label>
+                            <select id="status"
+                                class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors">
+                                <option value="Completed">Completed</option>
+                                <option value="Airing">Airing</option>
+                                <option value="Upcoming">Upcoming</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-400 mb-1">Durasi per Episode</label>
+                            <input type="text" id="duration" placeholder="Ex: 24 min"
+                                class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
                             <label class="block text-xs text-gray-400 mb-1">Total Episode</label>
                             <input type="text" id="episodes" placeholder="Contoh: 500"
                                 class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors"
@@ -147,6 +170,12 @@
                                 class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors"
                                 required>
                         </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Produser</label>
+                        <input type="text" id="producers" placeholder="Aniplex, TV Tokyo, dll"
+                            class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors">
                     </div>
 
                     <div>
@@ -213,10 +242,17 @@
                         <i class="fas fa-spinner fa-spin mr-2"></i> Mengunggah...
                     </div>
 
-                    <button type="submit" id="submit-btn"
-                        class="w-full bg-secondary hover:bg-cyan-400 text-dark font-bold py-3 rounded-lg shadow-lg hover:shadow-cyan-500/50 transition-all flex justify-center items-center gap-2 mt-4 transform active:scale-95">
-                        <i class="fas fa-paper-plane"></i> Upload Anime
-                    </button>
+                    <input type="hidden" id="edit-id">
+                    <div class="flex gap-2 mt-4">
+                        <button type="button" id="cancel-edit-btn"
+                            class="hidden bg-red-600 hover:bg-red-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all">
+                            Batal
+                        </button>
+                        <button type="submit" id="submit-btn"
+                            class="flex-1 bg-secondary hover:bg-cyan-400 text-dark font-bold py-3 rounded-lg shadow-lg hover:shadow-cyan-500/50 transition-all flex justify-center items-center gap-2 transform active:scale-95">
+                            <i class="fas fa-paper-plane"></i> <span id="submit-text">Upload Anime</span>
+                        </button>
+                    </div>
 
                 </div>
             </form>
@@ -271,8 +307,9 @@
 
                     <div>
                         <h2 id="modal-title"
-                            class="text-3xl md:text-5xl font-bold text-white mb-3 leading-tight font-sans">Judul Anime
+                            class="text-3xl md:text-5xl font-bold text-white mb-1 leading-tight font-sans">Judul Anime
                         </h2>
+                        <h3 id="modal-title-jp" class="text-xl text-gray-400 mb-3 font-sans"></h3>
 
                         <div class="flex flex-wrap gap-2 mb-5" id="modal-genres">
                             <!-- Genre Badges -->
@@ -283,14 +320,26 @@
                             <span class="flex items-center gap-1 text-yellow-400 font-bold text-lg"><i
                                     class="fas fa-star"></i> <span id="modal-rating">0.0</span></span>
                             <span class="hidden md:inline text-gray-600">|</span>
+
                             <span class="flex items-center gap-1"><i class="fas fa-video text-secondary"></i> <span
                                     id="modal-studio">Studio</span></span>
                             <span class="hidden md:inline text-gray-600">|</span>
+
                             <span class="flex items-center gap-1"><i class="fas fa-clock text-secondary"></i> <span
                                     id="modal-status">Status</span></span>
                             <span class="hidden md:inline text-gray-600">|</span>
+
+                            <span class="flex items-center gap-1"><i class="fas fa-hourglass-half text-secondary"></i>
+                                <span id="modal-duration">24 min</span></span>
+                            <span class="hidden md:inline text-gray-600">|</span>
+
                             <span class="flex items-center gap-1"><i class="fas fa-calendar-alt text-secondary"></i>
                                 <span id="modal-release">Released</span></span>
+                        </div>
+
+                        <div class="mb-4 text-sm text-gray-400">
+                            <span class="text-secondary font-semibold">Produser:</span> <span
+                                id="modal-producers">-</span>
                         </div>
                     </div>
 
