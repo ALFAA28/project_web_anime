@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    
+
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -33,108 +34,140 @@
         }
     </script>
 </head>
+
 <body class="bg-dark text-white min-h-screen flex flex-col font-sans">
 
     <!-- Navbar -->
     <nav class="bg-darker/90 backdrop-blur-md sticky top-0 z-50 shadow-lg border-b border-white/10">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold flex items-center gap-2 text-primary hover:text-red-400 transition-colors">
+            <a href="#"
+                class="text-2xl font-bold flex items-center gap-2 text-primary hover:text-red-400 transition-colors">
                 <i class="fas fa-play-circle"></i> AnimeVerse
             </a>
-            
+
             <div class="flex items-center gap-4">
                 <!-- Search Bar -->
                 <div class="hidden md:flex relative group">
-                    <input type="text" id="search-input" placeholder="Cari anime..." 
-                        class="bg-card text-sm rounded-full px-4 py-2 pl-10 w-64 focus:outline-none focus:ring-2 focus:ring-primary transition-all text-white placeholder-gray-400">
-                    <i class="fas fa-search absolute left-3 top-2.5 text-gray-400 group-focus-within:text-white transition-colors"></i>
+                    <input type="text" id="search-input" placeholder="Cari anime, karakter, atau studio..."
+                        class="bg-card text-sm rounded-full px-4 py-2 pl-10 w-80 focus:outline-none focus:ring-2 focus:ring-primary transition-all text-white placeholder-gray-400">
+                    <i
+                        class="fas fa-search absolute left-3 top-2.5 text-gray-400 group-focus-within:text-white transition-colors"></i>
                 </div>
 
                 <!-- Admin Button / Login -->
-                <button id="auth-btn" class="bg-primary hover:bg-red-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all shadow-md hover:shadow-red-500/30">
+                <button id="auth-btn"
+                    class="bg-primary hover:bg-red-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all shadow-md hover:shadow-red-500/30">
                     <i class="fas fa-user-shield mr-1"></i> Admin Login
                 </button>
             </div>
         </div>
     </nav>
-    
+
     <!-- Admin Login Modal -->
-    <div id="login-modal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-[60] backdrop-blur-sm transition-opacity duration-300">
-        <div class="bg-card p-8 rounded-xl w-full max-w-md relative border border-white/10 shadow-2xl transform transition-transform duration-300 scale-95 hover:scale-100">
-            <button id="close-login-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+    <div id="login-modal"
+        class="fixed inset-0 bg-black/80 hidden items-center justify-center z-[60] backdrop-blur-sm transition-opacity duration-300">
+        <div
+            class="bg-card p-8 rounded-xl w-full max-w-md relative border border-white/10 shadow-2xl transform transition-transform duration-300 scale-95 hover:scale-100">
+            <button id="close-login-btn"
+                class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
                 <i class="fas fa-times text-xl"></i>
             </button>
             <h2 class="text-3xl font-bold mb-6 text-center text-primary">Admin Access</h2>
             <form id="login-form" class="space-y-4">
                 <div>
                     <label class="block text-sm mb-1 text-gray-300">Email</label>
-                    <input type="email" id="login-email" class="w-full bg-darker text-white border border-gray-600 rounded p-3 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all" required>
+                    <input type="email" id="login-email"
+                        class="w-full bg-darker text-white border border-gray-600 rounded p-3 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all"
+                        required>
                 </div>
                 <div>
                     <label class="block text-sm mb-1 text-gray-300">Password</label>
-                    <input type="password" id="login-password" class="w-full bg-darker text-white border border-gray-600 rounded p-3 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all" required>
+                    <input type="password" id="login-password"
+                        class="w-full bg-darker text-white border border-gray-600 rounded p-3 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all"
+                        required>
                 </div>
-                <button type="submit" class="w-full bg-primary hover:bg-red-600 text-white py-3 rounded font-bold transition-all shadow-lg mt-2">Masuk</button>
-                <div id="login-error" class="text-red-400 text-sm text-center hidden mt-2">Email atau password salah!</div>
+                <button type="submit"
+                    class="w-full bg-primary hover:bg-red-600 text-white py-3 rounded font-bold transition-all shadow-lg mt-2">Masuk</button>
+                <div id="login-error" class="text-red-400 text-sm text-center hidden mt-2">Email atau password salah!
+                </div>
             </form>
         </div>
     </div>
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8 flex-grow">
-        
+
         <!-- Admin Panel (Protected) -->
-        <section id="admin-panel" class="hidden mb-12 bg-card p-6 rounded-xl border border-primary/30 shadow-[0_0_15px_rgba(255,107,107,0.1)]">
+        <section id="admin-panel"
+            class="hidden mb-12 bg-card p-6 rounded-xl border border-primary/30 shadow-[0_0_15px_rgba(255,107,107,0.1)]">
             <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
-                <h2 class="text-2xl font-bold text-secondary flex items-center gap-2"><i class="fas fa-database"></i> Tambah Database Anime</h2>
-                <button id="logout-btn" class="text-red-400 hover:text-red-300 font-semibold text-sm transition-colors border border-red-400/30 px-3 py-1 rounded hover:bg-red-400/10">
+                <h2 class="text-2xl font-bold text-secondary flex items-center gap-2"><i class="fas fa-database"></i>
+                    Tambah Database Anime</h2>
+                <button id="logout-btn"
+                    class="text-red-400 hover:text-red-300 font-semibold text-sm transition-colors border border-red-400/30 px-3 py-1 rounded hover:bg-red-400/10">
                     <i class="fas fa-sign-out-alt mr-1"></i> Logout
                 </button>
             </div>
-            
+
             <form id="anime-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Text Inputs -->
                 <div class="space-y-4">
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Judul Anime</label>
-                        <input type="text" id="title" placeholder="Contoh: Naruto Shippuden" class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors" required>
+                        <input type="text" id="title" placeholder="Contoh: Naruto Shippuden"
+                            class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors"
+                            required>
                     </div>
-                    
+
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs text-gray-400 mb-1">Studio</label>
-                            <input type="text" id="studio" placeholder="Contoh: Pierrot" class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors" required>
+                            <input type="text" id="studio" placeholder="Contoh: Pierrot"
+                                class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors"
+                                required>
                         </div>
                         <div>
                             <label class="block text-xs text-gray-400 mb-1">Rating</label>
-                            <input type="number" id="rating" placeholder="0.0 - 10" step="0.1" max="10" class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors" required>
+                            <input type="number" id="rating" placeholder="0.0 - 10" step="0.1" max="10"
+                                class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors"
+                                required>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs text-gray-400 mb-1">Total Episode</label>
-                            <input type="text" id="episodes" placeholder="Contoh: 500" class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors" required>
+                            <input type="text" id="episodes" placeholder="Contoh: 500"
+                                class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors"
+                                required>
                         </div>
                         <div>
                             <label class="block text-xs text-gray-400 mb-1">Rilis</label>
-                            <input type="text" id="release" placeholder="Contoh: Winter 2007" class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors" required>
+                            <input type="text" id="release" placeholder="Contoh: Winter 2007"
+                                class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors"
+                                required>
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Genre</label>
-                        <input type="text" id="genre" placeholder="Action, Adventure, Fantasy" class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors" required>
+                        <input type="text" id="genre" placeholder="Action, Adventure, Fantasy"
+                            class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors"
+                            required>
                     </div>
-                    
+
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Link Nonton</label>
-                        <input type="url" id="watch-link" placeholder="https://..." class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors" required>
+                        <input type="url" id="watch-link" placeholder="https://..."
+                            class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors"
+                            required>
                     </div>
 
                     <div>
                         <label class="block text-xs text-gray-400 mb-1">Sinopsis</label>
-                        <textarea id="synopsis" rows="4" placeholder="Ringkasan cerita..." class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors" required></textarea>
+                        <textarea id="synopsis" rows="4" placeholder="Ringkasan cerita..."
+                            class="w-full bg-darker text-white p-3 rounded border border-gray-600 focus:border-secondary focus:outline-none transition-colors"
+                            required></textarea>
                     </div>
                 </div>
 
@@ -142,16 +175,23 @@
                 <div class="space-y-4">
                     <div class="bg-darker p-4 rounded border border-gray-600 hover:border-gray-500 transition-colors">
                         <label class="block mb-2 text-sm text-gray-300 font-semibold">Poster Anime (Wajib)</label>
-                        <input type="file" id="poster-file" accept="image/*" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-secondary file:text-dark hover:file:bg-cyan-400 transition-all cursor-pointer" required>
-                        <div id="poster-preview" class="mt-3 h-48 w-32 bg-gray-800 rounded hidden bg-cover bg-center shadow-md border border-gray-700"></div>
+                        <input type="file" id="poster-file" accept="image/*"
+                            class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-secondary file:text-dark hover:file:bg-cyan-400 transition-all cursor-pointer"
+                            required>
+                        <div id="poster-preview"
+                            class="mt-3 h-48 w-32 bg-gray-800 rounded hidden bg-cover bg-center shadow-md border border-gray-700">
+                        </div>
                     </div>
 
                     <div class="bg-darker p-4 rounded border border-gray-600 hover:border-gray-500 transition-colors">
                         <label class="block mb-2 text-sm text-gray-300 font-semibold">Karakter & Seiyuu</label>
                         <div class="flex gap-2 mb-2">
-                            <input type="text" id="char-name-input" placeholder="Nama Karakter" class="flex-1 bg-gray-800 text-white text-xs p-2 rounded border border-gray-700 focus:border-secondary focus:outline-none">
-                            <input type="text" id="seiyuu-name-input" placeholder="Nama Seiyuu" class="flex-1 bg-gray-800 text-white text-xs p-2 rounded border border-gray-700 focus:border-secondary focus:outline-none">
-                            <button type="button" id="add-char-btn" class="bg-secondary text-dark hover:bg-cyan-400 px-3 py-1 rounded text-xs font-bold transition-colors">
+                            <input type="text" id="char-name-input" placeholder="Nama Karakter"
+                                class="flex-1 bg-gray-800 text-white text-xs p-2 rounded border border-gray-700 focus:border-secondary focus:outline-none">
+                            <input type="text" id="seiyuu-name-input" placeholder="Nama Seiyuu"
+                                class="flex-1 bg-gray-800 text-white text-xs p-2 rounded border border-gray-700 focus:border-secondary focus:outline-none">
+                            <button type="button" id="add-char-btn"
+                                class="bg-secondary text-dark hover:bg-cyan-400 px-3 py-1 rounded text-xs font-bold transition-colors">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </div>
@@ -159,25 +199,29 @@
                             <!-- Character List Items -->
                         </ul>
                     </div>
-                    
-                    <div id="upload-status" class="hidden p-3 rounded bg-blue-900/30 text-blue-200 text-sm border border-blue-500/30 text-center">
+
+                    <div id="upload-status"
+                        class="hidden p-3 rounded bg-blue-900/30 text-blue-200 text-sm border border-blue-500/30 text-center">
                         <i class="fas fa-spinner fa-spin mr-2"></i> Mengunggah...
                     </div>
 
-                    <button type="submit" id="submit-btn" class="w-full bg-secondary hover:bg-cyan-400 text-dark font-bold py-3 rounded-lg shadow-lg hover:shadow-cyan-500/50 transition-all flex justify-center items-center gap-2 mt-4 transform active:scale-95">
+                    <button type="submit" id="submit-btn"
+                        class="w-full bg-secondary hover:bg-cyan-400 text-dark font-bold py-3 rounded-lg shadow-lg hover:shadow-cyan-500/50 transition-all flex justify-center items-center gap-2 mt-4 transform active:scale-95">
                         <i class="fas fa-paper-plane"></i> Upload Anime
                     </button>
-                    
+
                 </div>
             </form>
         </section>
 
         <!-- Gallery Section -->
         <h1 class="text-3xl font-bold mb-8 pl-4 border-l-4 border-primary text-white">Anime Terbaru</h1>
-        
+
         <!-- Loading State -->
         <div id="loading-spinner" class="flex justify-center py-20">
-            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary shadow-lg shadow-primary/20"></div>
+            <div
+                class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary shadow-lg shadow-primary/20">
+            </div>
         </div>
 
         <!-- Anime Grid -->
@@ -188,10 +232,13 @@
     </main>
 
     <!-- Anime Detail Modal Overlay -->
-    <div id="detail-modal" class="fixed inset-0 bg-black/90 hidden z-[70] overflow-y-auto backdrop-blur-sm p-4 md:p-8 justify-center items-start transition-opacity duration-300 opacity-0 pointer-events-none">
-        <div class="relative bg-darker rounded-2xl w-full max-w-5xl mx-auto shadow-2xl border border-white/10 overflow-hidden transform transition-all duration-300 scale-95 mt-10">
-            
-            <button id="close-detail-btn" class="absolute top-4 right-4 z-20 bg-black/60 hover:bg-red-500 rounded-full w-10 h-10 flex items-center justify-center transition-all text-white border border-white/10">
+    <div id="detail-modal"
+        class="fixed inset-0 bg-black/90 hidden z-[70] overflow-y-auto backdrop-blur-sm p-4 md:p-8 justify-center items-start transition-opacity duration-300 opacity-0 pointer-events-none">
+        <div
+            class="relative bg-darker rounded-2xl w-full max-w-5xl mx-auto shadow-2xl border border-white/10 overflow-hidden transform transition-all duration-300 scale-95 mt-10">
+
+            <button id="close-detail-btn"
+                class="absolute top-4 right-4 z-20 bg-black/60 hover:bg-red-500 rounded-full w-10 h-10 flex items-center justify-center transition-all text-white border border-white/10">
                 <i class="fas fa-times text-lg"></i>
             </button>
 
@@ -199,10 +246,13 @@
                 <!-- Poster Side -->
                 <div class="relative h-[400px] md:h-full bg-black">
                     <img id="modal-poster" src="" alt="Poster" class="w-full h-full object-cover opacity-90">
-                    <div class="absolute inset-0 bg-gradient-to-t from-darker via-transparent to-transparent md:bg-gradient-to-r"></div>
-                    
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-darker via-transparent to-transparent md:bg-gradient-to-r">
+                    </div>
+
                     <div class="absolute bottom-6 left-6 right-6 md:hidden">
-                        <a id="modal-watch-btn-mobile" href="#" target="_blank" class="block w-full text-center bg-primary hover:bg-red-600 text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-red-500/50 transition-all">
+                        <a id="modal-watch-btn-mobile" href="#" target="_blank"
+                            class="block w-full text-center bg-primary hover:bg-red-600 text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-red-500/50 transition-all">
                             <i class="fas fa-play mr-2"></i> Tonton Sekarang
                         </a>
                     </div>
@@ -210,22 +260,29 @@
 
                 <!-- Info Side -->
                 <div class="p-6 md:p-10 space-y-6 max-h-[80vh] overflow-y-auto custom-scrollbar">
-                    
+
                     <div>
-                        <h2 id="modal-title" class="text-3xl md:text-5xl font-bold text-white mb-3 leading-tight font-sans">Judul Anime</h2>
-                        
+                        <h2 id="modal-title"
+                            class="text-3xl md:text-5xl font-bold text-white mb-3 leading-tight font-sans">Judul Anime
+                        </h2>
+
                         <div class="flex flex-wrap gap-2 mb-5" id="modal-genres">
                             <!-- Genre Badges -->
                         </div>
 
-                        <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-300 mb-6 bg-card/50 p-3 rounded-lg border border-white/5 inline-flex">
-                            <span class="flex items-center gap-1 text-yellow-400 font-bold text-lg"><i class="fas fa-star"></i> <span id="modal-rating">0.0</span></span>
+                        <div
+                            class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-300 mb-6 bg-card/50 p-3 rounded-lg border border-white/5 inline-flex">
+                            <span class="flex items-center gap-1 text-yellow-400 font-bold text-lg"><i
+                                    class="fas fa-star"></i> <span id="modal-rating">0.0</span></span>
                             <span class="hidden md:inline text-gray-600">|</span>
-                            <span class="flex items-center gap-1"><i class="fas fa-video text-secondary"></i> <span id="modal-studio">Studio</span></span>
+                            <span class="flex items-center gap-1"><i class="fas fa-video text-secondary"></i> <span
+                                    id="modal-studio">Studio</span></span>
                             <span class="hidden md:inline text-gray-600">|</span>
-                            <span class="flex items-center gap-1"><i class="fas fa-clock text-secondary"></i> <span id="modal-status">Status</span></span>
+                            <span class="flex items-center gap-1"><i class="fas fa-clock text-secondary"></i> <span
+                                    id="modal-status">Status</span></span>
                             <span class="hidden md:inline text-gray-600">|</span>
-                            <span class="flex items-center gap-1"><i class="fas fa-calendar-alt text-secondary"></i> <span id="modal-release">Released</span></span>
+                            <span class="flex items-center gap-1"><i class="fas fa-calendar-alt text-secondary"></i>
+                                <span id="modal-release">Released</span></span>
                         </div>
                     </div>
 
@@ -248,7 +305,8 @@
                     </div>
 
                     <div class="hidden md:block pt-6">
-                        <a id="modal-watch-btn" href="#" target="_blank" class="inline-block px-8 py-3 bg-primary hover:bg-red-600 text-white font-bold rounded-full shadow-lg hover:shadow-red-500/50 transition-all transform hover:-translate-y-1">
+                        <a id="modal-watch-btn" href="#" target="_blank"
+                            class="inline-block px-8 py-3 bg-primary hover:bg-red-600 text-white font-bold rounded-full shadow-lg hover:shadow-red-500/50 transition-all transform hover:-translate-y-1">
                             <i class="fas fa-play mr-2"></i> Tonton Episode Pertama
                         </a>
                     </div>
@@ -272,4 +330,5 @@
     <!-- Firebase SDK & App Logic -->
     <script type="module" src="app.js"></script>
 </body>
+
 </html>

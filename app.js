@@ -340,10 +340,29 @@ function renderAnimeGrid(animeList) {
 const searchInput = document.getElementById('search-input');
 searchInput.addEventListener('input', (e) => {
     const keyword = e.target.value.toLowerCase();
-    const filtered = globalAnimeList.filter(anime =>
-        anime.title.toLowerCase().includes(keyword) ||
-        (anime.genre && anime.genre.some(g => g.toLowerCase().includes(keyword)))
-    );
+
+    const filtered = globalAnimeList.filter(anime => {
+        // 1. Title Search
+        const hasTitle = anime.title.toLowerCase().includes(keyword);
+
+        // 2. Genre Search
+        const hasGenre = anime.genre && Array.isArray(anime.genre) && anime.genre.some(g => g.toLowerCase().includes(keyword));
+
+        // 3. Studio / Creator Search
+        const hasStudio = anime.studio && anime.studio.toLowerCase().includes(keyword);
+
+        // 4. Character & Seiyuu Search
+        let hasCharOrSeiyuu = false;
+        if (anime.characters && Array.isArray(anime.characters)) {
+            hasCharOrSeiyuu = anime.characters.some(char =>
+                (char.name && char.name.toLowerCase().includes(keyword)) ||
+                (char.seiyuu && char.seiyuu.toLowerCase().includes(keyword))
+            );
+        }
+
+        return hasTitle || hasGenre || hasStudio || hasCharOrSeiyuu;
+    });
+
     renderAnimeGrid(filtered);
 });
 
