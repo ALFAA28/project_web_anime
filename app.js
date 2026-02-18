@@ -485,14 +485,16 @@ searchInput.addEventListener('input', (e) => {
     const keyword = e.target.value.toLowerCase();
 
     const filtered = globalAnimeList.filter(anime => {
-        // 1. Title Search
-        const hasTitle = anime.title.toLowerCase().includes(keyword);
+        // 1. Title Search (Main & JP)
+        const hasTitle = anime.title.toLowerCase().includes(keyword) ||
+            (anime.title_jp && anime.title_jp.toLowerCase().includes(keyword));
 
         // 2. Genre Search
         const hasGenre = anime.genre && Array.isArray(anime.genre) && anime.genre.some(g => g.toLowerCase().includes(keyword));
 
-        // 3. Studio / Creator Search
-        const hasStudio = anime.studio && anime.studio.toLowerCase().includes(keyword);
+        // 3. Studio / Creator / Producer Search
+        const hasStudio = (anime.studio && anime.studio.toLowerCase().includes(keyword)) ||
+            (anime.producers && anime.producers.toLowerCase().includes(keyword));
 
         // 4. Character & Seiyuu Search
         let hasCharOrSeiyuu = false;
