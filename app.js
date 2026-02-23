@@ -45,6 +45,33 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const animeCollection = collection(db, "anime");
 
+// Toast Notification System
+const toastContainer = document.getElementById('toast-container');
+
+function showToast(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+
+    let icon = 'fa-check-circle';
+    if (type === 'error') icon = 'fa-exclamation-circle';
+    if (type === 'info') icon = 'fa-info-circle';
+
+    toast.innerHTML = `
+        <i class="fas ${icon}"></i>
+        <span class="text-sm font-medium">${message}</span>
+    `;
+
+    toastContainer.appendChild(toast);
+
+    // Auto remove after 4 seconds
+    setTimeout(() => {
+        toast.classList.add('toast-exit');
+        toast.addEventListener('animationend', () => {
+            toast.remove();
+        });
+    }, 4000);
+}
+
 // ==========================================
 // 3. AUTHENTICATION LOGIC (ADMIN PANEL)
 // ==========================================
@@ -82,7 +109,7 @@ loginForm.addEventListener('submit', async (e) => {
         loginModal.classList.remove('flex');
         loginForm.reset();
         errorMsg.classList.add('hidden');
-        alert("Login Berhasil! Selamat datang Admin.");
+        showToast("Login Berhasil! Selamat datang Admin.", "success");
     } catch (error) {
         console.error("Login Error:", error);
         errorMsg.textContent = "Gagal Login: " + error.message;
@@ -94,7 +121,7 @@ loginForm.addEventListener('submit', async (e) => {
 logoutBtn.addEventListener('click', async () => {
     try {
         await signOut(auth);
-        alert("Logout Berhasil!");
+        showToast("Logout Berhasil!", "info");
     } catch (error) {
         console.error("Logout Error:", error);
     }
@@ -247,7 +274,7 @@ addCharBtn.addEventListener('click', () => {
         document.getElementById('seiyuu-name-input').value = '';
         charImgInput.value = '';
     } else {
-        alert("Nama Karakter dan Seiyuu harus diisi!");
+        showToast("Nama Karakter dan Seiyuu harus diisi!", "error");
     }
 });
 
@@ -354,7 +381,7 @@ animeForm.addEventListener('submit', async (e) => {
 
     // If Add mode, require poster. If Edit mode, poster is optional (keep old).
     if (!isEdit && !file) {
-        alert("Harap upload poster anime!");
+        showToast("Harap upload poster anime!", "error");
         return;
     }
 
@@ -422,11 +449,11 @@ animeForm.addEventListener('submit', async (e) => {
         if (!isEdit) {
             animeData.createdAt = serverTimestamp();
             await addDoc(animeCollection, animeData);
-            alert("Anime berhasil ditambahkan!");
+            showToast("Anime berhasil ditambahkan!", "success");
         } else {
             const docRef = doc(animeCollection, editId);
             await updateDoc(docRef, animeData);
-            alert("Anime berhasil diupdate!");
+            showToast("Anime berhasil diupdate!", "success");
             cancelEdit(); // Reset form mode
         }
 
