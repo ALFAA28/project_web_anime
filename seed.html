@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Seed Dummy Data ke Firebase</title>
+    <style>
+        body { font-family: sans-serif; padding: 40px; background: #f0f2f5; text-align: center; }
+        .card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 500px; margin: 0 auto; }
+        h1 { color: #333; }
+        #status { font-weight: bold; font-size: 1.2rem; color: #f59e0b; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Seeding Data...</h1>
+        <p>Sedang mengirim data dummy langsung ke Firebase Anda...</p>
+        <p id="status">Harap tunggu, jangan tutup halaman ini...</p>
+        <div id="action" style="margin-top: 20px; display: none;">
+            <a href="index.html" style="background: #10b981; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Kembali ke Beranda</a>
+        </div>
+    </div>
+    <script type="module" src="seed.js"></script>
+</body>
+</html>
