@@ -498,6 +498,112 @@ onSnapshot(q, (snapshot) => {
         globalAnimeList.push(anime);
     });
 
+    // Jika database kosong, tampilkan data dummy
+    if (globalAnimeList.length === 0) {
+        globalAnimeList = [
+            {
+                id: "dummy-1",
+                title: "Naruto Shippuden",
+                title_jp: "ナルト- 疾風伝",
+                synopsis: "Uzumaki Naruto, seorang ninja hiperaktif dan kepala batu, selalu membuat onar di desanya karena ia ingin diakui oleh penduduk desa yang membencinya. Di dalam tubuh Naruto, tersegel monster rubah ekor sembilan yang pernah menghancurkan desanya.",
+                studio: "Pierrot",
+                rating: 8.5,
+                status: "Completed",
+                duration: "24 min",
+                episodes: "500",
+                release: "Winter 2007",
+                producers: "TV Tokyo, Aniplex",
+                genre: ["Action", "Adventure", "Fantasy"],
+                watch_link: "#",
+                poster_url: "https://placehold.co/400x600/0F3460/FF6B6B?text=Naruto+Shippuden",
+                characters: [
+                    { name: "Naruto Uzumaki", seiyuu: "Junko Takeuchi", image_url: "" },
+                    { name: "Sasuke Uchiha", seiyuu: "Noriaki Sugiyama", image_url: "" }
+                ]
+            },
+            {
+                id: "dummy-2",
+                title: "Jujutsu Kaisen",
+                title_jp: "呪術廻戦",
+                synopsis: "Yuji Itadori adalah seorang siswa SMA dengan kemampuan fisik yang luar biasa. Setelah memakan jari terkutuk milik Ryomen Sukuna, ia terseret ke dunia Kutukan.",
+                studio: "MAPPA",
+                rating: 8.7,
+                status: "Completed",
+                duration: "24 min",
+                episodes: "24",
+                release: "Fall 2020",
+                producers: "TOHO animation",
+                genre: ["Action", "Supernatural"],
+                watch_link: "#",
+                poster_url: "https://placehold.co/400x600/0F3460/FF6B6B?text=Jujutsu+Kaisen",
+                characters: [
+                    { name: "Yuji Itadori", seiyuu: "Junya Enoki", image_url: "" },
+                    { name: "Satoru Gojo", seiyuu: "Yuichi Nakamura", image_url: "" }
+                ]
+            },
+            {
+                id: "dummy-3",
+                title: "Demon Slayer: Kimetsu no Yaiba",
+                title_jp: "鬼滅の刃",
+                synopsis: "Sejak zaman dahulu, ada rumor tentang iblis pemakan manusia yang bersembunyi di hutan. Karena itu, penduduk setempat tidak pernah keluar di malam hari...",
+                studio: "ufotable",
+                rating: 8.6,
+                status: "Completed",
+                duration: "24 min",
+                episodes: "26",
+                release: "Spring 2019",
+                producers: "Aniplex",
+                genre: ["Action", "Historical", "Supernatural"],
+                watch_link: "#",
+                poster_url: "https://placehold.co/400x600/0F3460/FF6B6B?text=Demon+Slayer",
+                characters: [
+                    { name: "Tanjiro Kamado", seiyuu: "Natsuki Hanae", image_url: "" },
+                    { name: "Nezuko Kamado", seiyuu: "Akari Kito", image_url: "" }
+                ]
+            },
+            {
+                id: "dummy-4",
+                title: "Attack on Titan",
+                title_jp: "進撃の巨人",
+                synopsis: "Berabad-abad yang lalu, umat manusia dibantai hingga hampir punah oleh makhluk mengerikan yang menyerupai manusia purba yang dikenal sebagai Titan...",
+                studio: "Wit Studio",
+                rating: 9.0,
+                status: "Completed",
+                duration: "24 min",
+                episodes: "25",
+                release: "Spring 2013",
+                producers: "Production I.G",
+                genre: ["Action", "Drama", "Fantasy"],
+                watch_link: "#",
+                poster_url: "https://placehold.co/400x600/0F3460/FF6B6B?text=Attack+on+Titan",
+                characters: [
+                    { name: "Eren Yeager", seiyuu: "Yuki Kaji", image_url: "" },
+                    { name: "Levi Ackerman", seiyuu: "Hiroshi Kamiya", image_url: "" }
+                ]
+            },
+            {
+                id: "dummy-5",
+                title: "Fullmetal Alchemist: Brotherhood",
+                title_jp: "鋼の錬金術師 FULLMETAL ALCHEMIST",
+                synopsis: "Eksperimen alkimia mengerikan berjalan salah di rumah tangga Elric, menghasilkan kerusakan tubuh yang parah pada dua bersaudara Edward dan Alphonse...",
+                studio: "Bones",
+                rating: 9.1,
+                status: "Completed",
+                duration: "24 min",
+                episodes: "64",
+                release: "Spring 2009",
+                producers: "Aniplex",
+                genre: ["Action", "Adventure", "Drama", "Fantasy"],
+                watch_link: "#",
+                poster_url: "https://placehold.co/400x600/0F3460/FF6B6B?text=FMA+Brotherhood",
+                characters: [
+                    { name: "Edward Elric", seiyuu: "Romi Park", image_url: "" },
+                    { name: "Alphonse Elric", seiyuu: "Rie Kugimiya", image_url: "" }
+                ]
+            }
+        ];
+    }
+
     renderAnimeGrid(globalAnimeList);
 }, (error) => {
     console.error("Error fetching anime:", error);
