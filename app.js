@@ -607,7 +607,10 @@ onSnapshot(q, (snapshot) => {
     renderAnimeGrid(globalAnimeList);
 }, (error) => {
     console.error("Error fetching anime:", error);
-    loadingSpinner.innerHTML = '<p class="text-red-500">Gagal memuat data.</p>';
+    loadingSpinner.classList.add('hidden');
+    // Jika gagal fetch (misal karena rule firebase), tetap tampilkan dummy data
+    globalAnimeList = [...dummyDataList];
+    renderAnimeGrid(globalAnimeList);
 });
 
 
