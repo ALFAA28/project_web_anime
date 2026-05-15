@@ -570,6 +570,9 @@ window.openDetail = (animeId) => {
     elTitle.textContent = anime.title;
     elTitleJp.textContent = anime.title_jp || '';
     elPoster.src = anime.poster_url;
+    elPoster.classList.add('cursor-pointer', 'transition-opacity', 'hover:opacity-75');
+    elPoster.onclick = () => previewImage(anime.poster_url);
+    elPoster.title = "Lihat Poster Penuh";
     elSynopsis.textContent = anime.synopsis;
     elRating.textContent = anime.rating;
     elStudio.textContent = anime.studio;
