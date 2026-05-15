@@ -289,7 +289,7 @@ function renderCharList() {
 
         const imgSrc = char.previewUrl || char.image_url;
         let imgHtml = imgSrc
-            ? `<img src="${imgSrc}" class="w-8 h-8 rounded-full object-cover border border-gray-500">`
+            ? `<img src="${imgSrc}" class="w-8 h-8 rounded-full object-cover border border-gray-500 cursor-pointer hover:ring-2 hover:ring-primary transition-all" onclick="previewImage('${imgSrc}')" title="Lihat Gambar">`
             : '<div class="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center"><i class="fas fa-user text-gray-400"></i></div>';
 
         li.innerHTML = `
@@ -595,7 +595,7 @@ window.openDetail = (animeId) => {
             div.className = "flex items-center gap-2 bg-black/30 p-2 rounded";
 
             let imgHtml = char.image_url
-                ? `<img src="${char.image_url}" class="w-8 h-8 rounded-full object-cover">`
+                ? `<img src="${char.image_url}" class="w-8 h-8 rounded-full object-cover cursor-pointer hover:ring-2 hover:ring-primary transition-all" onclick="previewImage('${char.image_url}')" title="Lihat Gambar">`
                 : '<div class="w-8 h-8 rounded-full bg-secondary text-dark flex items-center justify-center font-bold text-xs"><i class="fas fa-user"></i></div>';
 
             div.innerHTML = `
@@ -644,3 +644,45 @@ function closeModal() {
     }, 300); // Wait for transition
     document.body.classList.remove('modal-open');
 }
+
+// ==========================================
+// 8. IMAGE PREVIEW MODAL LOGIC
+// ==========================================
+const imagePreviewModal = document.getElementById('image-preview-modal');
+const closeImagePreviewBtn = document.getElementById('close-image-preview-btn');
+const previewImageElement = document.getElementById('preview-image-element');
+
+window.previewImage = (url) => {
+    if (!url) return;
+    previewImageElement.src = url;
+    imagePreviewModal.classList.remove('hidden');
+    imagePreviewModal.classList.add('flex');
+    
+    // Animation Hack to trigger transition
+    setTimeout(() => {
+        imagePreviewModal.classList.remove('opacity-0', 'pointer-events-none');
+    }, 10);
+};
+
+function closeImagePreview() {
+    imagePreviewModal.classList.add('opacity-0', 'pointer-events-none');
+    setTimeout(() => {
+        imagePreviewModal.classList.add('hidden');
+        imagePreviewModal.classList.remove('flex');
+        previewImageElement.src = '';
+    }, 300); // Wait for transition
+}
+
+if (closeImagePreviewBtn) {
+    closeImagePreviewBtn.addEventListener('click', closeImagePreview);
+}
+
+if (imagePreviewModal) {
+    // Close on background click
+    imagePreviewModal.addEventListener('click', (e) => {
+        if (e.target === imagePreviewModal || e.target.closest('#image-preview-modal') === imagePreviewModal && e.target !== previewImageElement && e.target !== closeImagePreviewBtn && !closeImagePreviewBtn.contains(e.target)) {
+            closeImagePreview();
+        }
+    });
+}
+
