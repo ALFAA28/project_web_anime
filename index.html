@@ -373,9 +373,9 @@
     </div>
 
     <!-- Image Preview Modal -->
-    <div id="image-preview-modal" class="fixed inset-0 bg-black/95 hidden z-[80] items-center justify-center backdrop-blur-md p-4 transition-opacity duration-300 opacity-0 pointer-events-none">
+    <div id="image-preview-modal" class="fixed inset-0 bg-black/95 hidden items-center justify-center backdrop-blur-md p-4 transition-opacity duration-300 opacity-0 pointer-events-none" style="z-index: 9999;">
         <div class="relative max-w-3xl w-full mx-auto flex items-center justify-center">
-            <button id="close-image-preview-btn" class="absolute -top-12 right-0 md:-right-12 md:top-0 z-20 bg-black/60 hover:bg-red-500 rounded-full w-10 h-10 flex items-center justify-center transition-all text-white border border-white/10 shadow-lg">
+            <button id="close-image-preview-btn" class="absolute -top-12 right-0 md:-right-12 md:top-0 bg-black/60 hover:bg-red-500 rounded-full w-10 h-10 flex items-center justify-center transition-all text-white border border-white/10 shadow-lg" style="z-index: 10000;">
                 <i class="fas fa-times text-lg"></i>
             </button>
             <img id="preview-image-element" src="" alt="Preview" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-[0_0_30px_rgba(0,0,0,0.5)] border border-white/10">
